@@ -1,10 +1,7 @@
 'use strict';
 var AWS = require('aws-sdk');
 // Load credentials and set region from JSON file
-AWS.config.loadFromPath('./secret.json');
-/*
-  - If present delete Launch Configuration
- */
+AWS.config.loadFromPath('./aws/secret/config.json');
 var userData64 = new Buffer(`
   #!/bin/bash
   set -e -x
