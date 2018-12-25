@@ -1,0 +1,44 @@
+.product-header-image {
+  background-size: cover;
+}
+
+.card-image-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.card-image-wrapper {
+  padding: 0.1rem;
+  max-width: 50%;
+}
+img {
+  width: 100%;
+}
+
+.btn-approve{
+  background-color:#32CD32;
+}
+
+.btn-detail {
+  background-color: rgb(243, 13, 13);
+  color: white;
+}
+.product-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+.button-buy {
+  background-color: #00c6fb;
+}
+.solved {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.solved > p {
+  margin: 10px 0;
+}
+

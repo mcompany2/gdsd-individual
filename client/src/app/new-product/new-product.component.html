@@ -1,0 +1,34 @@
+<form [formGroup]="newProduct" (ngSubmit)="createNewProduct()">
+  <mat-card class="example-card">
+    <mat-form-field>
+      <input matInput placeholder="Name" formControlName="name" />
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput placeholder="Description" formControlName="description"></textarea>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Price" formControlName="price" type="number" />
+      <mat-icon matSuffix>euro_symbol</mat-icon>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select placeholder="Category" formControlName="categoryId">
+        <mat-option *ngFor="let category of $categories | async" [value]="category.id"> {{ category.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select placeholder="Location" formControlName="location">
+        <mat-option *ngFor="let location of locations" [value]="location"> {{ location }} </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <image-upload url="{{config.apiUrl}}/imageUpload" (removed)="onImageRemoved($event)" (uploadFinished)="onImageUploaded($event)"></image-upload>
+    <mat-card-actions class="product-actions">
+      <button class="button-post" *ngIf="!(update)" mat-raised-button type="submit" [disabled]="newProduct.invalid">
+        Post
+      </button>
+      <button class="button-post" *ngIf="update" mat-raised-button type="submit" [disabled]="newProduct.invalid">
+        Update
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>

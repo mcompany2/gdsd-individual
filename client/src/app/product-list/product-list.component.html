@@ -1,0 +1,7 @@
+<div class="main-container">
+  <app-adv-search [hidden]="!advanceSearch"></app-adv-search>
+  <p *ngIf="products.length == 0" class="no-product">There is no product to show</p>
+  <ng-template ngFor let-product [ngForOf]="products">
+    <app-product [product]="product"></app-product>
+  </ng-template>
+</div>

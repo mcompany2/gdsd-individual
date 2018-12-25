@@ -1,0 +1,11 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "mlab": {
+    "url": "mongodb://admin:dbpass1@ds137191.mlab.com:37191/youbuy",
+    "name": "mlab",
+    "connector": "mongodb"
+  }
+}

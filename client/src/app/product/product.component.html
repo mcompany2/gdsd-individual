@@ -1,0 +1,76 @@
+<mat-card class="product-card">
+  <mat-card-header>
+    <!-- <div mat-card-avatar class="product-header-image" [ngStyle]="{'background-image': 'url('+ product.createdBy.avatar + ')'}"></div> -->
+    <div mat-card-avatar class="product-header-image">
+      <img ngxGravatar class="product-header-image" [email]="product.owner.email" size="40">
+    </div>
+    <mat-card-title>{{product.owner.username}}</mat-card-title>
+    <mat-card-subtitle>{{product.postedDate | date: 'short'}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <b>{{product.name}}</b>
+    <b> &nbsp;&nbsp; | &nbsp;&nbsp; {{product.price}} €</b>
+    <p>{{product.description}}</p>
+  </mat-card-content>
+  <div class="card-image-list">
+    <div class="card-image-wrapper">
+      <img *ngIf="product.images.length" [src]="product.images[0]" (click)="detailProduct(product)"/>
+      <img *ngIf="!product.images.length" src="http://pluspng.com/img-png/iphone-6s-logo-vector-png-apple-iphone-6s-logo-vector-200.png"/>
+    </div>
+  </div>
+  <mat-list>
+
+  </mat-list>
+  <mat-card-actions class="product-actions" *ngIf="!(currentUser && currentUser.realm === 'admin')">
+    <button class="button-wish" mat-raised-button color="accent"
+      *ngIf="!(currentUser && currentUser.id === product.owner.id)"
+      matBadgePosition="after" matBadgeColor="accent" matBadge="{{product.customerToWish.length}}"
+      (click)="hasWished()? unwish() : wish()">
+      {{currentUser && hasWished()?'Unwish':'Wish'}}
+    </button>
+    <button mat-raised-button class="btn-approve"
+      *ngIf="currentUser && currentUser.id === product.owner.id"
+      (click)='editProduct(product)'>
+      Edit
+    </button>
+    <!--*ngIf="!product.solved && product.createdBy.customername === currentUser.customername"-->
+    <button class="button-buy" mat-raised-button color="primary"
+    *ngIf="!(currentUser && currentUser.id === product.owner.id)"
+      (click)="buy()">
+      Buy
+    </button>
+    <!-- span style="flex:1 1 auto"></span>
+    <span class="solved" *ngIf="product.solved">
+      <mat-icon>done</mat-icon>
+      <p>Solved</p>
+    </span> -->
+    <button mat-raised-button class="btn-detail"
+    *ngIf="!(currentUser && currentUser.id === product.owner.id)"
+      (click)="detailProduct(product)">Detail</button>
+      <button mat-raised-button color="warn"
+      *ngIf="currentUser && currentUser.id === product.owner.id"
+     (click)='deleteProduct(product)'>
+      Delete
+    </button>
+  </mat-card-actions>
+
+<!-- this will shown only when the user will be admin to approve/disapprove product -->
+  <mat-card-actions class="product-actions"
+  *ngIf="currentUser && currentUser.realm === 'admin' && product.status === 'pending'">
+    <button mat-raised-button class="btn-approve"
+      (click)='approved(product)'>
+      Approve
+    </button>
+    <button mat-raised-button color="warn" (click)="disapproved(product)" *ngIf="product.status === 'pending'">
+      Disapprove
+    </button>
+  </mat-card-actions>
+    <mat-card-actions align="center"
+    *ngIf="currentUser && currentUser.realm === 'admin' && !(product.status === 'pending')">
+    <button class="button-buy" mat-raised-button disabled
+      color="primary">
+        Product is {{product.status}}
+      </button>
+  </mat-card-actions>
+
+</mat-card>

@@ -1,0 +1,31 @@
+<form [formGroup]="advSearch" (ngSubmit)="search()">
+  <mat-form-field>
+    <input matInput type="text" placeholder="Description" formControlName="description">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="number" placeholder="Min Price" formControlName="minPrice">
+    <mat-icon matSuffix>euro_symbol</mat-icon>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="number" placeholder="Max Price" formControlName="maxPrice">
+    <mat-icon matSuffix>euro_symbol</mat-icon>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="Location" formControlName="location">
+      <mat-option [value]="null">Any</mat-option>
+      <mat-option *ngFor="let location of locations" [value]="location"> {{ location }} </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker1" formControlName="minDate" placeholder="Min date">
+    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+    <mat-datepicker touchUi #picker1></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker2" formControlName="maxDate" placeholder="Max date">
+    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker touchUi #picker2></mat-datepicker>
+  </mat-form-field>
+  <button mat-button type="submit" color="accent" [disabled]="advSearch.invalid">Apply</button>
+</form>
+<hr>

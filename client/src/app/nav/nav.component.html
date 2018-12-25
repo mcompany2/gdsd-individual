@@ -1,0 +1,78 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport="true"
+    [attr.role]="isHandset ? 'dialog' : 'navigation'"
+    [mode]="(isHandset | async)!.matches ? 'over' : 'side'"
+    [opened]="!(isHandset | async)!.matches">
+    <mat-toolbar color="primary"><a class="brand" routerLink="/"><span>YouBuy</span></a></mat-toolbar>
+    <app-nav-admin *ngIf="currentUser && currentUser.realm === 'admin'"></app-nav-admin>
+    <app-categories></app-categories>
+    <hr/>
+    <mat-nav-list>
+      <a mat-list-item>
+        <mat-checkbox labelPosition="before" (ngModelChange)="toggleAdvanceSearch($event)" ngModel>Advance Search</mat-checkbox>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="(isHandset | async)!.matches">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <div class="col-md-4 col-md-offset-2">
+        <div class="input-group">
+          <input type="text" [(ngModel)]="searchTerm" (keyup.enter)="search()" class="form-control" placeholder="Search">
+          <div class="input-group-btn">
+            <button class="btn btn-default" (click)="search()">
+              <span class="fas fa-search-plus"></span>
+              <mat-icon>search</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      <span class="spacer"></span>
+
+      <ng-template [ngIf]="this.currentUser">
+        <a mat-icon-button [matMenuTriggerFor]="menu">
+          <img ngxGravatar [email]="this.currentUser.email" size="40">
+        </a>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="dashboard(currentUser.id)">DashBoard</button>
+          <button mat-menu-item (click)="logout()">Logout</button>
+        </mat-menu>
+      </ng-template>
+
+      <ng-template [ngIf]="!this.currentUser">
+        <!-- Login Signup for large views -->
+        <div class="toolbar-buttons" *ngIf="!(isHandset | async)!.matches">
+          <button routerLink="/login" mat-raised-button color="accent">Login</button>
+          <button routerLink="/signup" mat-raised-button color="accent">Sign Up</button>
+        </div>
+
+        <!-- Login Signup for small views -->
+        <div *ngIf="(isHandset | async)!.matches">
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button routerLink="/login" mat-menu-item>
+              <span>Login</span>
+            </button>
+            <button routerLink="/signup" mat-menu-item>
+              <span>Signup</span>
+            </button>
+          </mat-menu>
+        </div>
+      </ng-template>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+    <button mat-fab class="button-new-product" routerLink="new"><mat-icon>add</mat-icon></button>
+  </mat-sidenav-content>
+</mat-sidenav-container>

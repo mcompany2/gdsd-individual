@@ -1,0 +1,28 @@
+<section class="background">
+  <div class="main">
+    <a routerLink="/home">
+      <div class="title">
+        <span class="you">You</span>
+        <span class="buy">Buy</span>
+      </div>
+    </a>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="field-wrapper">
+        <input type="text" name="username" placeholder="Username" formControlName="username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }"/>
+        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+            <div *ngIf="f.username.errors.required">Username is required</div>
+        </div>
+      </div>
+      <div class="field-wrapper">
+        <input type="password" name="password" placeholder="Password" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>
+        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">Password is required</div>
+        </div>
+      </div>
+      <div class="field-wrapper" >
+        <input class="submit" type="submit" value="Login" [disabled]="loading">
+      </div>
+    </form>
+    <p routerLink="/signup" >Create new account</p>
+  </div>
+</section>

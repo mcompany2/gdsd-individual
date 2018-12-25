@@ -1,0 +1,71 @@
+{
+  "name": "Product",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "scope": {
+    "include": [
+      "category",
+      "owner",
+      "customerToWish"
+    ]
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "location": {
+      "type": "string",
+      "required": true
+    },
+    "postedDate": {
+      "type": "date",
+      "required": true
+    },
+    "description": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "default": "pending"
+    },
+    "sold": {
+      "type": "boolean",
+      "default": false
+    },
+    "images": {
+      "type": [
+        "string"
+      ],
+      "required": true
+    },
+    "price": {
+      "type": "number",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "customerToWish": {
+      "type": "hasMany",
+      "model": "Customer",
+      "foreignKey": "productId",
+      "through": "Wishlist"
+    },
+    "category": {
+      "type": "belongsTo",
+      "model": "Category",
+      "foreignKey": "categoryId"
+    },
+    "owner": {
+      "type": "belongsTo",
+      "model": "Customer",
+      "foreignKey": "customerId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

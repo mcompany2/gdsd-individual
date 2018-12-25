@@ -1,0 +1,57 @@
+{
+  "name": "Wishlist",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "customer": {
+      "type": "belongsTo",
+      "model": "Customer",
+      "foreignKey": "customerId"
+    },
+    "product": {
+      "type": "belongsTo",
+      "model": "Product",
+      "foreignKey": "productId"
+    }
+  },
+  "acls": [],
+  "methods": {
+    "unwishproduct": {
+      "accepts": [
+        {
+          "arg": "reqBody",
+          "type": "object",
+          "required": true,
+          "description": "",
+          "http": {
+            "source": "body"
+          }
+        }
+      ],
+      "returns": [
+        {
+          "arg": "product",
+          "type": "array",
+          "root": false,
+          "description": ""
+        },
+        {
+          "arg": "customer",
+          "type": "array",
+          "root": false,
+          "description": ""
+        }
+      ],
+      "description": "remove product from customers wishlist",
+      "http": {
+        "verb": "post",
+        "path": "/unwish"
+      }
+    }
+  }
+}

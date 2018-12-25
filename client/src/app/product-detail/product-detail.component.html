@@ -1,0 +1,52 @@
+<mat-card class="product-card">
+  <div class="container">
+  <div class="row">
+    <div class="col-sm-6">
+      <img ngxGravatar [email]="this.currentUser.email" size="40"> &nbsp;&nbsp;&nbsp; <b> {{currentUser.username}} </b>
+      <br><br>
+      <b>Posted Date:</b> {{product.postedDate}}
+      <br><br>
+      <b>Title:</b> {{product.name}}
+      <br><br>
+      <b>Price:</b> {{product.price}}
+      <br><br>
+      <b>Location:</b> {{product.location}}
+      <br><br>
+      <b>Description: </b>
+      <br><br>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="col-sm-12">
+            <span name="des">
+              {{product.description}}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <mat-form-field class="example-full-width">
+        <textarea matInput placeholder="Enter your message" rows="5" cols="60"></textarea>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary">Send Message</button>
+    </div>
+<!-- 
+    <div class="col-sm-3">
+      <div class="row"></div>
+      <div class="col-sm-12"></div>
+      <div class="col-sm-3 offset-sm-5">
+        <a href=""><img src="../assets/img/img-src.png" class="sample-pic"></a><br>
+        <a href=""><img src="../assets/img/img-src.png" class="sample-pic"></a><br>
+        <a href=""><img src="../assets/img/img-src.png" class="sample-pic"></a><br>
+        <a href=""><img src="../assets/img/img-src.png" class="sample-pic"></a><br>
+      </div>
+    </div> -->
+
+    <div class="col-sm-1"></div>
+
+    <div class="col-sm-3">
+      <img [src]="product.images && product.images.length ? product.images[0] : '../assets/img/img-src.png'" class="display-pic"><br>
+    </div>
+  </div>
+</div>  
+</mat-card>
