@@ -5,10 +5,12 @@ AWS.config.loadFromPath('./aws/secret/config.json');
 var userData64 = new Buffer(`
   #!/bin/bash
   set -e -x
+  sudo -i
+  sudo yum install java-1.8.0 -y
+  sudo yum remove java-1.7.0-openjdk -y
   curl --silent --location https://rpm.nodesource.com/setup_9.x | bash -
-  sudo yum update –y
-  sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkinsci.org/redhat/jenkins.repo
-  sudo rpm --import https://pkg.jenkins.io/redhat/jenkins.io.key
+  curl --silent --location http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo | sudo tee /etc/yum.repos.d/jenkins.repo
+  sudo rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
   sudo yum install jenkins -y
   sudo service jenkins start
   sudo yum install -y git nodejs
@@ -155,3 +157,45 @@ autoscaling.createLaunchConfiguration(
   launchConfiguration,
   launchConfigurationCallBack
 );
+
+
+// // AMI is amzn-ami-2011.09.1.x86_64-ebs
+// var instanceParams = {
+//   ImageId: 'ami-0233214e13e500f77',
+//   InstanceType: 't2.micro',
+//   KeyName: 'qwiklabsAwsKey',
+//   MinCount: 1,
+//   MaxCount: 1,
+//   UserData: userData64
+// };
+
+// // Create a promise on an EC2 service object
+// var instancePromise = new AWS.EC2({apiVersion: '2016-11-15'}).runInstances(instanceParams).promise();
+
+// // Handle promise's fulfilled/rejected states
+// instancePromise.then(
+//   function(data) {
+//     console.log(data);
+//     var instanceId = data.Instances[0].InstanceId;
+//     console.log("Created instance", instanceId);
+//     // Add tags to the instance
+//     // tagParams = {Resources: [instanceId], Tags: [
+//     //    {
+//     //       Key: 'Name',
+//     //       Value: 'SDK Sample'
+//     //    }
+//     // ]};
+//     // Create a promise on an EC2 service object
+//     var tagPromise = new AWS.EC2({apiVersion: '2016-11-15'}).createTags(tagParams).promise();
+//     // Handle promise's fulfilled/rejected states
+//     tagPromise.then(
+//       function(data) {
+//         console.log("Instance tagged");
+//       }).catch(
+//         function(err) {
+//         console.error(err, err.stack);
+//       });
+//   }).catch(
+//     function(err) {
+//     console.error(err, err.stack);
+//   });
