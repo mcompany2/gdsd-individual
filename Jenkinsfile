@@ -1,9 +1,7 @@
 pipeline {
     agent any
     environment {
-       CXX = "g++-4.9.4"
-       LD = "g++-4.9.4"
-       ETL_MKL = 'true'
+       env = "ci"
     }
     stages {
         stage ('git'){
