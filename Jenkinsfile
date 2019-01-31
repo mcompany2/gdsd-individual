@@ -11,21 +11,17 @@ pipeline {
                 sh 'env'
             }
         }
-        stage ('pre-analysis') {
+        stage ('install-dependencies') {
             steps {
               sh 'npm install'
               sh 'cd client && npm install'
             }
         }
-        // stage ('build-backend'){
-        //     steps {
-        //         sh 'node .'
-        //     }
-        // }
 
         stage ('build-frontend'){
             steps {
                 sh 'cd client && npm i && node --max_old_space_size=4096 ./node_modules/.bin/ng build --prod'
+                sh 'echo "FRONTEND BUILD SUCCESSFULL"'
             }
         }
         stage ('test-frontend'){
