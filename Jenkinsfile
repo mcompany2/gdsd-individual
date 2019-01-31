@@ -25,7 +25,7 @@ pipeline {
 
         stage ('build-frontend'){
             steps {
-                sh 'cd client && npm i && ./node_modules/.bin/ng build --prod'
+                sh 'cd client && npm i && node --max_old_space_size=4096 ./node_modules/.bin/ng build --prod'
             }
         }
         stage ('test-frontend'){
