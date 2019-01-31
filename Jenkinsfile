@@ -17,11 +17,15 @@ pipeline {
               sh 'cd client && npm install'
             }
         }
-        stage ('build'){
+        stage ('build-backend'){
             steps {
                 sh 'node .'
+            }
+        }
+        stage ('build-frontend'){
+            steps {
                 sh 'cd client'
-                sh 'cd client'
+                sh './node_modules/.bin/ng serve'
             }
         }
     }
