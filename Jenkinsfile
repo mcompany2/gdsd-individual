@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-       env = "ci"
+       NODE_ENV = "production"
     }
     stages {
         stage ('git'){
@@ -17,15 +17,23 @@ pipeline {
               sh 'cd client && npm install'
             }
         }
-        stage ('build-backend'){
-            steps {
-                sh 'node .'
-            }
-        }
+        // stage ('build-backend'){
+        //     steps {
+        //         sh 'node .'
+        //     }
+        // }
+
         stage ('build-frontend'){
             steps {
                 sh 'cd client'
-                sh './node_modules/.bin/ng serve'
+                sh './node_modules/.bin/ng build --prod'
+            }
+        }
+        stage ('test-frontend'){
+            steps {
+                // sh 'cd client'
+                sh './node_modules/.bin/ng test'
+                sh './node_modules/.bin/ng e2e'
             }
         }
     }
