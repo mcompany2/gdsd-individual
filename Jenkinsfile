@@ -25,8 +25,7 @@ pipeline {
 
         stage ('build-frontend'){
             steps {
-                sh 'cd client'
-                sh './node_modules/.bin/ng build --prod'
+                sh 'cd client && ./node_modules/.bin/ng build --prod'
             }
         }
         stage ('test-frontend'){
