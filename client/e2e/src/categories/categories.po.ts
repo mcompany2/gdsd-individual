@@ -6,6 +6,6 @@ export class CategoryPage {
   }
 
   getCategoriesText() {
-    return element(by.css('mat-list-item-content')).getText();
+    return element(by.css('mat-nav-list')).all(by.css('.mat-list-item-content')).getText();
   }
 }
