@@ -1,17 +1,19 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { CategoryService } from './category.service';
+import { CustomerService } from './customer.service';
 import { HttpClientModule } from '@angular/common/http';
 
-fdescribe('CategoryService', () => {
+fdescribe('CustomerService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [ HttpClientModule ],
-      providers: [CategoryService]
+      providers: [ CustomerService ]
     });
   });
 
-  it('should be created', inject([CategoryService], (service: CategoryService) => {
+  it('should be created', inject([CustomerService], (service: CustomerService) => {
     expect(service).toBeTruthy();
-  }));
+
+  }))
+  ;
 });

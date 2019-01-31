@@ -1,11 +1,21 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { ProductService } from './product.service';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterTestingModule } from '@angular/router/testing';
+import { AuthenticationService } from './authentication.service';
 
-describe('ProductService', () => {
+fdescribe('ProductService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ProductService]
+      imports: [
+        HttpClientModule,
+        RouterTestingModule
+      ],
+      providers: [
+        ProductService,
+        AuthenticationService
+      ]
     });
   });
 
