@@ -4,13 +4,6 @@ pipeline {
        NODE_ENV = "production"
     }
     stages {
-        stage ('git'){
-            steps {
-                sh 'node -v'
-                sh 'npm -v'
-                sh 'env'
-            }
-        }
         stage ('install-dependencies') {
             steps {
               sh 'npm install'
